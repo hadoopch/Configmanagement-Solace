@@ -1,2 +1,2 @@
-# T-Systems-Config-Management
-Configure Solace Brokers with a configuration management tool
+# Ansible example Code
+Configures a solace message router using the solace cli and cliscript templates
