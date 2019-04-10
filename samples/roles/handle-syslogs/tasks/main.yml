@@ -1,0 +1,40 @@
+---
+- name:  Copy show_current_config.cli syslog
+  copy: 
+    src: files/show_current_config.cli
+    dest: /usr/sw/jail/cliscripts/show_current_config.cli
+    force: no
+- name: show current-config
+  command:
+     /usr/sw/loads/currentload/bin/cli -A -es /cliscripts/show_current_config.cli  | grep 'create syslog'
+  register: current_config 
+  changed_when: False
+- name: Set var create syslog  "{{ syslog.syslogname }}"
+  set_fact:
+    cliaction: ["create"]
+  when: "syslog.syslogname not in current_config.stdout and  syslog.status == 'present'"
+- name: Set action overwrite syslog
+  set_fact: 
+    cliaction: ["overwrite"]
+  when: "syslog.syslogname in current_config.stdout  and  syslog.status == 'present' and syslog.overwrite == 'yes'"
+- name: Set action keep syslog 
+  set_fact: 
+    cliaction: ["skip"]
+  when: "syslog.syslogname in current_config.stdout  and  syslog.status == 'present' and syslog.overwrite == 'no'"
+- name: Set action delete syslog
+  set_fact: 
+    cliaction: ["no"]
+  when: "syslog.syslogname in current_config.stdout  and  syslog.status == 'absent'"
+- name: Set action no action
+  set_fact: 
+    cliaction: ["skip"] 
+  when: "syslog.syslogname not in current_config.stdout  and  syslog.status == 'absent'"
+- name: send & run syslog cli "{{ syslog.syslogname }}"
+  block:
+    - name: copy script syslog.{{ syslog.syslogname }}.cli
+      template: src=templates/syslog.tp.cli dest=/usr/sw/jail/cliscripts/syslog.{{ syslog.syslogname }}.cli
+    - name: run script syslog.{{ syslog.syslogname }}.cli
+      command:  /usr/sw/loads/currentload/bin/cli -A -es /cliscripts/syslog.{{ syslog.syslogname }}.cli -p
+      register: config_status
+      failed_when: "'Invalid' in config_status.stdout or 'ERROR'  in  config_status.stdout"
+  when: "cliaction[0] != 'skip'"

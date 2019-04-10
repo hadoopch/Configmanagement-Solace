@@ -1,0 +1,16 @@
+enable
+configure
+{% if cliaction[0] == "overwrite" -%}
+no syslog {{syslog['syslogname']}}
+create syslog {{syslog['syslogname']}} 
+{% else -%}
+{{cliaction[0]}} syslog {{syslog['syslogname']}} 
+{% endif -%}
+{% if syslog['status'] == "present" -%}
+{% for each_host in  syslog['hosts'] -%}
+host {{each_host.name}}:{{each_host.port}} transport {{each_host.proto}}
+{% endfor %}
+{% for each_facility in  syslog['facilities'] -%}
+facility {{each_facility}}
+{% endfor %}
+{%- endif %}

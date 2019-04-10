@@ -1,0 +1,15 @@
+---
+ - hosts: "{{ env }}"
+   become: true
+   vars_files:
+     - vars/syslog-{{ env }}.yml
+   gather_facts: no
+
+   tasks:
+   - name: Create syslog config
+     include_role:
+      name: handle-syslogs
+     with_items: "{{ syslognames }}"
+     vars:
+      syslog: "{{ item }}"
+

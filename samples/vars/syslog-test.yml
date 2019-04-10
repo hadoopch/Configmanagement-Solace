@@ -1,0 +1,21 @@
+syslognames:
+ - syslogname: mysyslog1
+   hosts:
+     - name: usairz0319
+       port: 4711
+       proto: tcp
+   facilities:
+     - event
+     - debug 
+   status: present 
+   overwrite: !!str no 
+ - syslogname: mysyslog2
+   hosts:
+     - name: usairz0320
+       port: 4713
+       proto: udp
+   facilities:
+     - event
+     - debug 
+   status: present 
+   overwrite: !!str no 
