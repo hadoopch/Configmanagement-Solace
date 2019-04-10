@@ -44,7 +44,7 @@ For configuring Solace objects we normally have to run some Ansible tasks, e.g.
 ## syslog.yml
 
 This file ist the playbook. 
-The **_hosts_** key defines the group of routers we want to configure. A group is defined in the ini file. In our example the ini file is **_hosts.yml_**.
+The **_hosts: {{env}}_** key defines the group of routers we want to configure. A group is defined in the ini file. In our example the ini file is **_hosts.yml_**.
 We pass the value for the host key as an extra variable **_env_** with the ansible-playbook command using the **_-e option_**.
 **_become: true_** means that all commands will be run through sudo, so the commands will be run as the root user.
 We include the file **_vars/syslog-{{env}}.yml_** which contains all variables related to the syslog configuration for test group. 
