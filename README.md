@@ -77,3 +77,19 @@ The tasks defined in this file are doing the syslog configuration:
 * Depending on the current configuration and the value of the status respective the overwrite variable the fact cliaction will be set.
 * The cli script based on the template syslog.tp.cli will be transfered to the message router. The name of the syslog object is part of the cli name.
 * Finally the transfered cli script will be excuted and the output will be checked.
+
+# Running and testing the playbook
+If you want to test the sample code just do the following steps:
+* Replace the name mysrv001sv in hosts.yml
+* Adjust the syslog configuration in vars/syslog-test.yml
+
+Afterwards you can run the following command:
+```playbook
+ansible-playbook -e env=test  syslog.yml  -i hosts.yml
+```
+If the syslog objects defined in the syslog-test.yml do not exist they will be created if you set **_status: present_**
+You can verify the creation of the syslog object at the solace prompt:
+
+```show_syslog
+show syslog * 
+```
