@@ -46,7 +46,7 @@ For configuring Solace objects we normally have to run some Ansible tasks, e.g.
 This file ist the playbook. 
 The hosts key define the group of routers we want to configure. A group defined in the ini file is used.
 We pass the value for the host key as an extra variable with the ansible-playbook command
-*_become: true_* means that all commands will be run through sudo, so the commands will be run as the root user.
+**_become: true_** means that all commands will be run through sudo, so the commands will be run as the root user.
 
 we include a yaml file vars/syslog-{{env}}.yml which contains all variables related to the syslog configuration for this test 
 We don't need the infos from the managed solace router so we set gather_facts to false
