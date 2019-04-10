@@ -1,3 +1,19 @@
+# Table of contents
+* [Introduction](#configuration-possibilities)
+* [Prerequisites](#approach-for-a-complete-configuration)
+   * [Message Router](#usage-cli)
+   * [Ansible Server](#hidden-options)
+* [Ansible playbooks - a short introduction](#requirements-for-starting-cliscripts)
+* [Overview of files](#the-right-tool)
+   * [syslog.yml](#requirements-solace)
+   * [hosts.yml](#requirements-ansible)
+   * [vars/syslog-test.yml](#ansible-samples)
+   * [files/show_current_config.cli](#ansible-samples)
+   * [templates/syslog.tp.cli](#ansible-samples)
+   * [roles/handle-syslogs/tasks/main.yml](#ansible-samples)
+* [Running and testing the playbook](#application-of-the-approach)
+
+
 # Introduction
 There several possibilities of configuring a Solace message router via the cli:
 
@@ -41,7 +57,7 @@ For configuring Solace objects we normally have to run some Ansible tasks, e.g.
 * Transfer the cli script to the message router
 * ...
 
-## Overview of files
+# Overview of files
 
 ## syslog.yml
 This file ist the playbook. 
