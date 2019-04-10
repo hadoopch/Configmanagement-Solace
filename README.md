@@ -27,4 +27,16 @@ We use the name mysrv001sv for this interface.
 The sample configuration definitions have to reside on the ansible management server. All code was tested on RHEL 7.3 and ansible 2.7.9. The user on the  Ansible server should be able to contact the message router via ssh using port 2222. 
 The following must work
 ssh -p 2222 ansible@mysrv001sv
+# Ansible playbooks - a short introduction
+With Ansible playbook you can send commands to a solace message router using ssh.
+Playbooks are written in YAML data serialization format. 
+Each playbook is build of one or several tasks.
+For configuring solace objects we normally have to run some Ansible tasks, e.g.
+
+
+* Transfer, Run and check current config 
+* Build the cli script by using a template cli script
+* Transfer the cli script to the message router
+* ...
+
 
