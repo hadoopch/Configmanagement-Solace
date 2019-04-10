@@ -59,3 +59,19 @@ We have one router **_mysrv001sv_** in this group. Also we define 2 group specif
 **_ansible_port_** defines the ssh port we want to connect to.
 The **_ansible_user_** variable conatins the name of the user we defined on the router
 
+## vars/syslog-test.yml
+In this file all variables for the syslog configuration are set. 
+In this file also the variables **_status_** and **_overwrite_** are set. With their values you can define if an object is present or absent and how to handle an already existing syslog object.
+
+## files/show_current_config.cli
+This is the cliscript to get the current-config of the message router.
+
+## templates/syslog.tp.cli
+This ist the template for building the syslog cli-scripts. The jinja code and the variables allow a flexible build of the appropriate cli script.
+
+## roles/handle-syslogs/tasks/main.yml
+The tasks defined in this file are doing the syslog configuration:
+* Copy the show_current_config.cli to the cliscripts directory if it not exists and execute it.
+* Depending on the current configuration and the value of the status respective the overwrite variable the fact cliaction will be set.
+* The cli script based on the template syslog.tp.cli will be transfered to the message router. The name of the syslog object is part of the cli name.
+* Finally the transfered cli script will be excuted and the output will be checked.
