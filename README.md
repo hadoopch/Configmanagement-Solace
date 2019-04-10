@@ -21,11 +21,11 @@ You also need a SSH public key which fits to SSH private key you will use on the
 If you are using the solace docker image you can create a Dockerfile that will do these adjustments.
 Code was tested with the default solace Docker image release 9.0.0.17.
 
-Docker hostname is mysrv001. The Solace SSH port 2222 is only published to the service LAN interface of the docker host. 
+Docker hostname in the sample code is mysrv001. The Solace SSH port 2222 is only published to the service LAN interface of the docker host. 
 We use the name mysrv001sv for this interface.
 ## Ansible Server
 The sample configuration definitions have to reside on the ansible management server. All code was tested on RHEL 7.3 and ansible 2.7.9. The user on the  Ansible server should be able to contact the message router via ssh using port 2222. 
-The following must work
+The following command must work
 ```ssh
 ssh -p 2222 ansible@mysrv001sv
 ```
