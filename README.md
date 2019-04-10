@@ -44,11 +44,10 @@ For configuring Solace objects we normally have to run some Ansible tasks, e.g.
 ## syslog.yml
 
 This file ist the playbook. 
-The hosts key define the group of routers we want to configure. A group defined in the ini file is used.
-We pass the value for the host key as an extra variable with the ansible-playbook command
+The **_hosts_** key defines the group of routers we want to configure. A group is defined in the ini file. In our example the ini file is **_hosts.yml_**.
+We pass the value for the host key as an extra variable **_env_** with the ansible-playbook command using the **_-e option_**.
 **_become: true_** means that all commands will be run through sudo, so the commands will be run as the root user.
-
-we include a yaml file vars/syslog-{{env}}.yml which contains all variables related to the syslog configuration for this test 
-We don't need the infos from the managed solace router so we set gather_facts to false
-We find one task in our playbook. But with include_role further tasks inside the appropriate role subdirectory will run.
-By using  with_items we are looping the main task and we are able to two several syslog configurations
+We include the file **_vars/syslog-{{env}}.yml_** which contains all variables related to the syslog configuration for test group. 
+Infos from the managed solace router aren't necessary so we set **_gather_facts: false_**
+We find one task in our playbook. But by using **_include_role_** further tasks inside the appropriate role subdirectory will run.
+By using **_with_items_** we are looping the main task and we are able to two several syslog configurations
