@@ -1,7 +1,7 @@
 syslognames:
  - syslogname: mysyslog1
    hosts:
-     - name: usairz0319
+     - name: syslogsrv1
        port: 4711
        proto: tcp
    facilities:
@@ -11,7 +11,7 @@ syslognames:
    overwrite: !!str no 
  - syslogname: mysyslog2
    hosts:
-     - name: usairz0320
+     - name: syslogsrv2
        port: 4713
        proto: udp
    facilities:
