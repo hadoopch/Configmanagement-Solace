@@ -93,3 +93,10 @@ You can verify the creation of the syslog object at the solace prompt:
 ```show_syslog
 show syslog * 
 ```
+Afterwards you can change one port for mysyslog1
+If **_overwrite: no_** is set the configuration will stay the same on the message router. Because mysyslog1 already exists and you defined the object will not be overwritten.
+If you set **_overwrite: yes_** the old config will be updated by deleting the old object and rebuilding it with the same name.
+If you run the playbook a second time with **_overwrite: yes_** without changing any value also the complete config will be deleted and rebuild. Updating an object this manner is not optimal. But it makes things much easier.
+Checking all values of the current configuration against the desired values defined on you Ansible server is much more complicated
+If you want to avoid overwriting an existing config than just set **_overwrite: no_**.
+If you want to delete an object then set **_status: absent_**
