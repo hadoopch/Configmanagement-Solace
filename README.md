@@ -42,12 +42,20 @@ For configuring Solace objects we normally have to run some Ansible tasks, e.g.
 ## Overview of files
 
 ## syslog.yml
-
 This file ist the playbook. 
-The **_hosts: {{env}}_** key defines the group of routers we want to configure. A group is defined in the ini file. In our example the ini file is **_hosts.yml_**.
+**_hosts: {{env}}_** defines the group of routers we want to configure. A group is defined in the ini file. In our example the ini file is **_hosts.yml_**.
 We pass the value for the host key as an extra variable **_env_** with the ansible-playbook command using the **_-e option_**.
 **_become: true_** means that all commands will be run through sudo, so the commands will be run as the root user.
 We include the file **_vars/syslog-{{env}}.yml_** which contains all variables related to the syslog configuration for test group. 
 Infos from the managed solace router aren't necessary so we set **_gather_facts: false_**
 We find one task in our playbook. But by using **_include_role_** further tasks inside the appropriate role subdirectory will run.
-By using **_with_items_** we are looping the main task and we are able to two several syslog configurations
+By using **_with_items_** we are looping the main task and we are able to two several syslog configurations.
+
+## hosts.yml
+Ansible works againt multiple systems in your infrastructure at the same time.
+It does this by selecting portions of systems listed in the inventory. In our example the inventory file is **_hosts.yml_**.
+In this file we define the group *_test_** of message routers.
+We have one router **_mysrv001sv_** in this group. Also we define 2 group specific vars.
+**_ansible_port_** defines the ssh port we want to connect to.
+The **_ansible_user_** variable conatins the name of the user we defined on the router
+
