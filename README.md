@@ -31,7 +31,7 @@ ssh -p 2222 ansible@mysrv001sv
 With Ansible playbook you can send commands to a solace message router using ssh.
 Playbooks are written in YAML data serialization format. 
 Each playbook is build of one or several tasks.
-For configuring solace objects we normally have to run some Ansible tasks, e.g.
+For configuring Solace objects we normally have to run some Ansible tasks, e.g.
 
 
 * Transfer, Run and check current config 
@@ -39,4 +39,16 @@ For configuring solace objects we normally have to run some Ansible tasks, e.g.
 * Transfer the cli script to the message router
 * ...
 
+## Overview of files
 
+## syslog.yml
+
+This file ist the playbook. 
+The hosts key define the group of routers we want to configure. A group defined in the ini file is used.
+We pass the value for the host key as an extra variable with the ansible-playbook command
+*_become: true_* means that all commands will be run through sudo, so the commands will be run as the root user.
+
+we include a yaml file vars/syslog-{{env}}.yml which contains all variables related to the syslog configuration for this test 
+We don't need the infos from the managed solace router so we set gather_facts to false
+We find one task in our playbook. But with include_role further tasks inside the appropriate role subdirectory will run.
+By using  with_items we are looping the main task and we are able to two several syslog configurations
